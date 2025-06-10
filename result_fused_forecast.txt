@@ -1,0 +1,4 @@
+long_term_forecast_fused_test_FusedTimeModel_Custom_sl30_pl1_dm512_fused_test_0
+long_term_forecast_fused_test_FusedTimeModel_Custom_sl30_pl1_dm512_fused_test_0
+mse:0.634828, mae:0.568940, rmse:0.796761, mape:0.049851, mspe:0.004542, R2:0.952997
+
