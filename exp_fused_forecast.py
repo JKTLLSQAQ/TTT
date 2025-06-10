@@ -70,9 +70,7 @@ class Exp_Fused_Forecast(Exp_Basic):
         # 计算验证集上的R²
         preds = np.concatenate(preds, axis=0)
         trues = np.concatenate(trues, axis=0)
-        _, _, _, _, _ = metric(preds, trues)
-        from sklearn.metrics import r2_score
-        r2 = r2_score(trues.flatten(), preds.flatten())
+        _, _, _, _, _, r2 = metric(preds, trues)
 
         self.model.train()
         return total_loss, r2
@@ -138,7 +136,7 @@ class Exp_Fused_Forecast(Exp_Basic):
                 model_optim.step()
 
                 if self.args.lradj == 'TST':
-                    # adjust_learning_rate(model_optim, scheduler, epoch + 1, self.args)
+                    adjust_learning_rate(model_optim, scheduler, epoch + 1, self.args, printout=False)
                     scheduler.step()
 
             print(f"Epoch: {epoch + 1} cost time: {time.time() - epoch_time}")
@@ -238,9 +236,7 @@ class Exp_Fused_Forecast(Exp_Basic):
         preds = np.concatenate(preds, axis=0)
         trues = np.concatenate(trues, axis=0)
 
-        mae, mse, rmse, mape, mspe = metric(preds, trues)
-        from sklearn.metrics import r2_score
-        r2 = r2_score(trues.flatten(), preds.flatten())
+        mae, mse, rmse, mape, mspe, r2 = metric(preds, trues)
         print(f'mse:{mse:.6f}, mae:{mae:.6f}')
         print(f'rmse:{rmse:.6f}, mape:{mape:.6f}, mspe:{mspe:.6f}')
         print(f'R²:{r2:.6f}')
